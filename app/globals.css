@@ -39,6 +39,13 @@
   box-sizing: border-box;
 }
 
+.scrollbar-none {
+  scrollbar-width: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
 html {
   scroll-behavior: auto; /* Lenis가 스무스 스크롤을 담당 */
 }
