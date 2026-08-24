@@ -1,29 +1,32 @@
 @import "tailwindcss";
 
 /* ------------------------------------------------------------------
-   다솜교회 — Quiet Warmth (v2)
-   세이지 그레이 배경 + 짙은 침엽수 그린 악센트 + 웜골드 보조색
-   (v1은 웜페이퍼+테라코타였으나 키훈 프로젝트의 크림지+레드 컨셉과
-   겹쳐 그린/골드 계열로 전면 교체함)
+   다솜교회 — Quiet Warmth (v3)
+   로즈스톤 배경 + 짙은 와인/버건디 악센트 + 브론즈 보조색
+   (v1 테라코타+크림 -> 키훈과 겹침, v2 그린+웜골드 -> 온담요양원
+   [care-demo]의 세이지그린+더스티블루와 겹침. doion 자매 사이트
+   전체의 색 계열: 키훈=레드, ptholic=오렌지, care-demo=그린,
+   빠둠뮤직/doion 브랜드=네이비+머스터드골드. 이 모두와 겹치지 않는
+   와인(버건디)+브론즈 계열로 전면 교체함)
    에디토리얼 사진 중심, 절제된 모션
 ------------------------------------------------------------------- */
 
 @theme {
-  --color-bg: #f4f5ef;
-  --color-bg-alt: #eceee2;
-  --color-surface: #fbfbf7;
+  --color-bg: #f5f0ec;
+  --color-bg-alt: #ede4df;
+  --color-surface: #fbf7f5;
   --color-surface-raised: #ffffff;
-  --color-line: rgba(31, 36, 32, 0.12);
-  --color-line-strong: rgba(31, 36, 32, 0.22);
-  --color-text: #1f2420;
-  --color-text-muted: #5c645c;
-  --color-text-faint: #92998f;
-  --color-accent: #2f4a3c;
-  --color-accent-strong: #1f332a;
-  --color-accent-soft: rgba(47, 74, 60, 0.1);
-  --color-gold: #b8862f;
-  --color-gold-soft: rgba(184, 134, 47, 0.14);
-  --color-cream: #f7f0de;
+  --color-line: rgba(42, 31, 38, 0.12);
+  --color-line-strong: rgba(42, 31, 38, 0.22);
+  --color-text: #2a1f26;
+  --color-text-muted: #6b5c63;
+  --color-text-faint: #9c8d92;
+  --color-accent: #6b2a3d;
+  --color-accent-strong: #431c2a;
+  --color-accent-soft: rgba(107, 42, 61, 0.1);
+  --color-gold: #a8763d;
+  --color-gold-soft: rgba(168, 118, 61, 0.14);
+  --color-cream: #f2e6da;
 
   --font-display: "Noto Serif KR", "Pretendard", serif;
   --font-body: "Pretendard", -apple-system, BlinkMacSystemFont, sans-serif;
