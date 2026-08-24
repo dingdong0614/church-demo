@@ -1,0 +1,114 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------
+   다솜교회 — Quiet Warmth
+   따뜻한 종이 톤 + 테라코타 악센트 + 세이지 그린 보조색
+   에디토리얼 사진 중심, 절제된 모션
+------------------------------------------------------------------- */
+
+@theme {
+  --color-bg: #f7f3ec;
+  --color-bg-alt: #f1eadd;
+  --color-surface: #fffdf9;
+  --color-surface-raised: #ffffff;
+  --color-line: rgba(42, 36, 32, 0.12);
+  --color-line-strong: rgba(42, 36, 32, 0.22);
+  --color-text: #2a2420;
+  --color-text-muted: #6b6259;
+  --color-text-faint: #9c9186;
+  --color-accent: #b4502e;
+  --color-accent-strong: #8f3b21;
+  --color-accent-soft: rgba(180, 80, 46, 0.1);
+  --color-sage: #5b6b4f;
+  --color-sage-soft: rgba(91, 107, 79, 0.12);
+  --color-cream: #efe4cf;
+
+  --font-display: "Noto Serif KR", "Pretendard", serif;
+  --font-body: "Pretendard", -apple-system, BlinkMacSystemFont, sans-serif;
+
+  --content-max: 1180px;
+  --ease-out-quiet: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: auto; /* Lenis가 스무스 스크롤을 담당 */
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  word-break: keep-all;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  margin: 0;
+  color: var(--color-text);
+  word-break: keep-all;
+}
+
+.wrap {
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+/* 종이 텍스처 오버레이 — 히어로/서브페이지 배경에 은은하게 사용 */
+.grain {
+  position: relative;
+}
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.5;
+  mix-blend-mode: multiply;
+  background-image: radial-gradient(rgba(42, 36, 32, 0.06) 1px, transparent 1px);
+  background-size: 3px 3px;
+}
