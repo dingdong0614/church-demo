@@ -140,7 +140,7 @@ export default function ContactForm() {
       >
         {submitting ? "전송 중..." : "문의 보내기"}
       </button>
-      <p role="status" aria-live="polite" className={`mt-3 text-sm ${status.error ? "text-accent-strong" : "text-sage"}`}>
+      <p role="status" aria-live="polite" className={`mt-3 text-sm ${status.error ? "text-accent-strong" : "text-gold"}`}>
         {status.text}
       </p>
     </form>

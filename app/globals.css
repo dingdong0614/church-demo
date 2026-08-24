@@ -1,27 +1,29 @@
 @import "tailwindcss";
 
 /* ------------------------------------------------------------------
-   다솜교회 — Quiet Warmth
-   따뜻한 종이 톤 + 테라코타 악센트 + 세이지 그린 보조색
+   다솜교회 — Quiet Warmth (v2)
+   세이지 그레이 배경 + 짙은 침엽수 그린 악센트 + 웜골드 보조색
+   (v1은 웜페이퍼+테라코타였으나 키훈 프로젝트의 크림지+레드 컨셉과
+   겹쳐 그린/골드 계열로 전면 교체함)
    에디토리얼 사진 중심, 절제된 모션
 ------------------------------------------------------------------- */
 
 @theme {
-  --color-bg: #f7f3ec;
-  --color-bg-alt: #f1eadd;
-  --color-surface: #fffdf9;
+  --color-bg: #f4f5ef;
+  --color-bg-alt: #eceee2;
+  --color-surface: #fbfbf7;
   --color-surface-raised: #ffffff;
-  --color-line: rgba(42, 36, 32, 0.12);
-  --color-line-strong: rgba(42, 36, 32, 0.22);
-  --color-text: #2a2420;
-  --color-text-muted: #6b6259;
-  --color-text-faint: #9c9186;
-  --color-accent: #b4502e;
-  --color-accent-strong: #8f3b21;
-  --color-accent-soft: rgba(180, 80, 46, 0.1);
-  --color-sage: #5b6b4f;
-  --color-sage-soft: rgba(91, 107, 79, 0.12);
-  --color-cream: #efe4cf;
+  --color-line: rgba(31, 36, 32, 0.12);
+  --color-line-strong: rgba(31, 36, 32, 0.22);
+  --color-text: #1f2420;
+  --color-text-muted: #5c645c;
+  --color-text-faint: #92998f;
+  --color-accent: #2f4a3c;
+  --color-accent-strong: #1f332a;
+  --color-accent-soft: rgba(47, 74, 60, 0.1);
+  --color-gold: #b8862f;
+  --color-gold-soft: rgba(184, 134, 47, 0.14);
+  --color-cream: #f7f0de;
 
   --font-display: "Noto Serif KR", "Pretendard", serif;
   --font-body: "Pretendard", -apple-system, BlinkMacSystemFont, sans-serif;
