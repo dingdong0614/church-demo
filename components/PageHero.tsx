@@ -11,7 +11,7 @@ export default function PageHero({
   desc: string;
 }) {
   return (
-    <section className="grain relative overflow-hidden border-b border-line bg-bg-alt py-20 md:py-28">
+    <section className="relative overflow-hidden border-b border-line bg-bg-alt py-20 md:py-28">
       <div className="wrap relative">
         <RevealOnScroll>
           <p className="text-xs tracking-[0.1em] text-text-faint">

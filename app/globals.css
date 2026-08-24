@@ -99,18 +99,3 @@ h3 {
   outline: 2px solid var(--color-accent);
   outline-offset: 3px;
 }
-
-/* 종이 텍스처 오버레이 — 히어로/서브페이지 배경에 은은하게 사용 */
-.grain {
-  position: relative;
-}
-.grain::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0.5;
-  mix-blend-mode: multiply;
-  background-image: radial-gradient(rgba(42, 36, 32, 0.06) 1px, transparent 1px);
-  background-size: 3px 3px;
-}
