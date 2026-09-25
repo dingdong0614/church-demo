@@ -1,93 +1,61 @@
 import Image from "next/image";
 import Link from "next/link";
-import { RevealHeading, RevealOnScroll } from "@/components/Reveal";
+import Icon from "@/components/Icon";
 import { SITE_CONFIG } from "@/data/site";
+import { PHOTOS, unsplash } from "@/data/photos";
 
-const FILMSTRIP = [
-  {
-    src: "https://images.unsplash.com/photo-1699830506478-af7b3f5e6cc9?auto=format&fit=crop&w=900&q=80",
-    alt: "따뜻한 빛이 스며드는 예배당",
-    rotate: "-rotate-3",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1438032005730-c779502df39b?auto=format&fit=crop&w=900&q=80",
-    alt: "함께 찬양하는 성도들",
-    rotate: "rotate-2",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1529070538774-1843cb3265df?auto=format&fit=crop&w=900&q=80",
-    alt: "예배 후 교제를 나누는 성도들",
-    rotate: "-rotate-2",
-  },
-] as const;
-
+/**
+ * 첫 화면: 예배당 사진을 화면 가득 + 사진 바로 아래 이번 주 예배 시간 띠.
+ * 정보는 애니메이션 없이 즉시 (고령 성도·저사양 기기, LCP 보호).
+ */
 export default function WelcomeHero() {
   return (
-    <section className="border-b border-line bg-bg py-16 md:pb-32 md:pt-24">
-      <div className="wrap flex flex-col items-center text-center">
-        <RevealOnScroll>
-          <p className="text-xs tracking-[0.14em] text-accent-strong">환영합니다</p>
-        </RevealOnScroll>
-        <RevealHeading
-          as="h1"
-          text={`처음 오신 걸음도, ${SITE_CONFIG.slogan}로 맞이합니다`}
-          className="mx-auto mt-4 max-w-2xl font-display text-[2rem] leading-[1.25] md:text-[2.8rem]"
+    <section aria-label="다솜교회 첫 화면">
+      <div className="relative h-[68svh] min-h-[440px] w-full overflow-hidden bg-night md:h-[78svh] md:max-h-[860px]">
+        <Image
+          src={unsplash(PHOTOS.sanctuary.id, 2400)}
+          alt={PHOTOS.sanctuary.alt}
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-[50%_40%]"
         />
-        <RevealOnScroll delay={0.15}>
-          <p className="mx-auto mt-6 max-w-lg text-text-muted">
-            {SITE_CONFIG.name}는 큰 규모보다 서로의 이름을 부르는 관계를 소중히 여기는 공동체입니다.
-            혼자 오셔도 괜찮습니다 — 새가족부가 첫 걸음부터 함께합니다.
-          </p>
-        </RevealOnScroll>
-        <RevealOnScroll delay={0.25} className="mt-8 flex flex-wrap items-center justify-center gap-4">
-          <Link
-            href="/visit"
-            className="bg-accent px-6 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-accent-strong"
-          >
-            처음 오셨나요?
-          </Link>
-          <Link href="/about" className="text-sm text-text-muted underline underline-offset-4 hover:text-text">
-            교회 소개 보기
-          </Link>
-        </RevealOnScroll>
+        <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-black/10" />
+        <div className="wrap absolute inset-x-0 bottom-0 pb-10 md:pb-16">
+          <p className="text-[16px] font-semibold text-white/90 md:text-[18px]">마포구 성산동 · 광흥창역에서 걸어서 8분</p>
+          <h1 className="mt-3 max-w-[15em] text-[36px] leading-[1.28] text-white sm:text-[48px] md:text-[60px]">
+            처음 오셔도
+            <br />
+            어색하지 않은 교회
+          </h1>
+        </div>
       </div>
 
-      <div className="mt-20 md:mt-28">
-      <div className="wrap relative">
-        <div className="grid grid-cols-3 gap-4 md:gap-6">
-          {FILMSTRIP.map((photo, i) => (
-            <RevealOnScroll key={photo.src} delay={0.1 + i * 0.1} className={i === 1 ? "md:-translate-y-3" : ""}>
-              <div
-                className={`relative aspect-[3/4] w-full overflow-hidden border-4 border-surface shadow-[0_20px_45px_-20px_rgba(42,31,38,0.35)] ${photo.rotate}`}
-              >
-                <Image
-                  src={photo.src}
-                  alt={photo.alt}
-                  fill
-                  priority={i === 0}
-                  sizes="(max-width: 767px) 33vw, 25vw"
-                  className="object-cover"
-                />
-              </div>
-            </RevealOnScroll>
-          ))}
-        </div>
-
-        <RevealOnScroll
-          delay={0.5}
-          className="relative mx-auto mt-8 max-w-xs border border-line-strong bg-surface p-5 md:absolute md:-bottom-8 md:right-[6%] md:mt-0 md:max-w-[15rem]"
-        >
-          <p className="text-xs tracking-[0.1em] text-text-faint">SUNDAY WORSHIP</p>
-          <ul className="mt-3 space-y-1.5 text-sm">
-            {SITE_CONFIG.hours.slice(0, 2).map((h) => (
-              <li key={h.label} className="flex items-baseline justify-between gap-4">
-                <span className="text-text-muted">{h.label}</span>
-                <span className="font-display">{h.time}</span>
+      {/* 이번 주 예배 시간 띠 */}
+      <div className="bg-accent-strong text-white">
+        <div className="wrap grid gap-y-5 py-6 md:grid-cols-[auto_1fr_auto] md:items-center md:gap-x-10 md:py-7">
+          <p className="font-display text-[20px] font-semibold md:border-r md:border-white/25 md:pr-10">
+            이번 주 예배
+          </p>
+          <ul className="grid grid-cols-2 gap-x-6 gap-y-3 sm:grid-cols-4">
+            {SITE_CONFIG.hours.map((h) => (
+              <li key={h.label} className="leading-snug">
+                <span className="block text-[15px] text-white/80">{h.label.replace(" 예배", "")}</span>
+                <span className="block font-display text-[21px] font-semibold md:text-[23px]">
+                  {h.time.replace(" (월~토)", "")}
+                </span>
+                {h.day === "월~토" && <span className="block text-[14px] text-white/80">월~토</span>}
               </li>
             ))}
           </ul>
-        </RevealOnScroll>
-      </div>
+          <Link
+            href="/visit"
+            className="inline-flex min-h-12 items-center gap-2 justify-self-start rounded-md bg-white px-5 font-semibold text-accent-strong transition-transform hover:-translate-y-0.5"
+          >
+            처음이세요? 이렇게 오시면 돼요
+            <Icon name="arrow" size={18} />
+          </Link>
+        </div>
       </div>
     </section>
   );

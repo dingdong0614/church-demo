@@ -1,34 +1,27 @@
-import Link from "next/link";
+import type { Metadata } from "next";
 import WelcomeHero from "@/components/WelcomeHero";
-import VisitCards from "@/components/VisitCards";
-import PastorMessage from "@/components/PastorMessage";
+import NewsBoard from "@/components/NewsBoard";
 import SermonList from "@/components/SermonList";
+import VisitCards from "@/components/VisitCards";
 import MinistryGrid from "@/components/MinistryGrid";
-import { RevealOnScroll } from "@/components/Reveal";
+import PastorMessage from "@/components/PastorMessage";
+import ClosingCta from "@/components/ClosingCta";
 
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
+
+/** 순서: 예배당 사진 + 예배 시간 띠 → 이번 주 주보 → 지난 설교 → 처음 오는 주일 → 앨범 → 목회 편지 → 찾아오는 길 */
 export default function HomePage() {
   return (
     <>
       <WelcomeHero />
-      <VisitCards />
-      <PastorMessage />
+      <NewsBoard />
       <SermonList />
+      <VisitCards />
       <MinistryGrid />
-
-      <section className="py-16 md:py-24">
-        <RevealOnScroll className="wrap flex flex-col items-start gap-5 border border-line-strong bg-surface p-9 md:flex-row md:items-center md:justify-between">
-          <div>
-            <p className="font-display text-xl">궁금한 점이 있으신가요?</p>
-            <p className="mt-2 text-sm text-text-muted">언제든 편하게 문의 남겨주세요. 목양팀이 직접 답변드립니다.</p>
-          </div>
-          <Link
-            href="/contact"
-            className="shrink-0 bg-accent px-6 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-accent-strong"
-          >
-            문의하기
-          </Link>
-        </RevealOnScroll>
-      </section>
+      <PastorMessage />
+      <ClosingCta />
     </>
   );
 }

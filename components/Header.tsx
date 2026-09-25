@@ -4,10 +4,13 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { SITE_CONFIG } from "@/data/site";
+import Icon from "@/components/Icon";
 
 const NAV_LINKS = [
-  { href: "/about", label: "교회소개" },
   { href: "/visit", label: "처음 오셨나요" },
+  { href: "/about", label: "교회소개" },
+  { href: "/#sermon", label: "설교" },
+  { href: "/#news", label: "주보·소식" },
   { href: "/contact", label: "문의" },
 ];
 
@@ -31,91 +34,117 @@ export default function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  useEffect(() => {
+    if (!open) return;
+    function onKey(e: KeyboardEvent) {
+      if (e.key === "Escape") setOpen(false);
+    }
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open]);
+
   return (
     <header
-      className={`sticky top-0 z-[100] border-b transition-colors ${
-        scrolled ? "border-line bg-bg/90 backdrop-blur-md" : "border-transparent bg-bg/60 backdrop-blur-sm"
+      className={`sticky top-0 z-[100] border-b bg-bg transition-colors ${
+        scrolled || open ? "border-line" : "border-transparent"
       }`}
     >
-      <div className="wrap flex h-16 items-center justify-between gap-4">
-        <Link href="/" className="flex items-center gap-2 shrink-0">
-          <span className="grid h-8 w-8 place-items-center rounded-full border border-line-strong font-display text-sm text-accent-strong">
+      <div className="wrap flex h-[68px] items-center justify-between gap-4 md:h-20">
+        <Link href="/" className="flex min-h-11 shrink-0 items-center gap-3" aria-label={`${SITE_CONFIG.name} 홈`}>
+          <span
+            aria-hidden
+            className="grid h-9 w-9 place-items-center rounded-full bg-accent font-display text-[15px] text-white"
+          >
             다
           </span>
-          <span className="font-display text-lg tracking-wide">{SITE_CONFIG.name}</span>
+          <span className="flex flex-col leading-tight">
+            <span className="font-display text-[19px] font-semibold">{SITE_CONFIG.name}</span>
+            <span className="text-[12px] tracking-[0.12em] text-text-faint">{SITE_CONFIG.nameEn.toUpperCase()}</span>
+          </span>
         </Link>
 
-        <nav aria-label="주요 메뉴" className="hidden md:flex items-center gap-8 text-[15px] text-text-muted">
+        <nav aria-label="주요 메뉴" className="hidden items-center gap-1 lg:flex">
           {NAV_LINKS.map((link) => {
             const isActive = pathname === link.href;
             return (
               <Link
                 key={link.href}
                 href={link.href}
-                className={`relative py-2 transition-colors ${
-                  isActive ? "text-accent-strong" : "hover:text-text"
+                aria-current={isActive ? "page" : undefined}
+                className={`relative inline-flex min-h-11 items-center px-3.5 text-[16px] transition-colors ${
+                  isActive ? "font-semibold text-accent" : "text-text-muted hover:text-text"
                 }`}
               >
                 {link.label}
-                {isActive && <span className="absolute -bottom-px left-0 right-0 h-px bg-accent-strong" />}
+                {isActive && <span className="absolute inset-x-3.5 bottom-1.5 h-[2px] bg-accent" />}
               </Link>
             );
           })}
         </nav>
 
-        <Link
-          href="/visit"
-          className="hidden md:inline-block bg-accent px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-accent-strong"
-        >
-          예배 시간 안내
-        </Link>
+        <div className="hidden items-center gap-3 lg:flex">
+          <Link href="/visit#times" className="btn btn-primary !min-h-11 !px-5 !text-[16px]">
+            <Icon name="clock" size={18} />
+            예배 시간
+          </Link>
+        </div>
 
         <button
           type="button"
           aria-expanded={open}
           aria-controls="mobileNav"
           onClick={() => setOpen((v) => !v)}
-          className="md:hidden relative h-9 w-9 shrink-0"
+          className="relative -mr-2 inline-flex h-12 min-w-12 items-center justify-center gap-2 px-2 text-[15px] font-semibold lg:hidden"
         >
-          <span className="sr-only">메뉴 열기</span>
-          <span
-            className={`absolute left-1/2 top-1/2 h-px w-6 -translate-x-1/2 bg-text transition-transform ${
-              open ? "translate-y-0 rotate-45" : "-translate-y-2"
-            }`}
-          />
-          <span
-            className={`absolute left-1/2 top-1/2 h-px w-6 -translate-x-1/2 bg-text transition-opacity ${
-              open ? "opacity-0" : "opacity-100"
-            }`}
-          />
-          <span
-            className={`absolute left-1/2 top-1/2 h-px w-6 -translate-x-1/2 bg-text transition-transform ${
-              open ? "translate-y-0 -rotate-45" : "translate-y-2"
-            }`}
-          />
+          <span>{open ? "닫기" : "메뉴"}</span>
+          <span aria-hidden className="relative block h-4 w-5">
+            <span
+              className={`absolute left-0 top-1/2 h-[2px] w-5 bg-text transition-transform ${
+                open ? "rotate-45" : "-translate-y-[6px]"
+              }`}
+            />
+            <span
+              className={`absolute left-0 top-1/2 h-[2px] w-5 bg-text transition-opacity ${open ? "opacity-0" : ""}`}
+            />
+            <span
+              className={`absolute left-0 top-1/2 h-[2px] w-5 bg-text transition-transform ${
+                open ? "-rotate-45" : "translate-y-[6px]"
+              }`}
+            />
+          </span>
         </button>
       </div>
 
       <nav
         id="mobileNav"
         aria-label="모바일 메뉴"
-        className={`md:hidden overflow-hidden border-t border-line bg-bg transition-[max-height] duration-300 ${
-          open ? "max-h-[320px]" : "max-h-0 border-t-0"
-        }`}
+        hidden={!open}
+        className="border-t border-line bg-bg lg:hidden"
       >
-        <div className="wrap flex flex-col gap-1 py-4 text-[15px]">
+        <div className="wrap flex flex-col py-3">
           {NAV_LINKS.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className={`py-2.5 ${pathname === link.href ? "text-accent-strong" : "text-text-muted"}`}
+              onClick={() => setOpen(false)}
+              aria-current={pathname === link.href ? "page" : undefined}
+              className={`flex min-h-14 items-center justify-between border-b border-line text-[18px] ${
+                pathname === link.href ? "font-semibold text-accent" : "text-text"
+              }`}
             >
               {link.label}
+              <Icon name="arrow" size={18} className="text-text-faint" />
             </Link>
           ))}
-          <Link href="/visit" className="mt-2 bg-accent py-2.5 text-center text-sm font-semibold text-white">
-            예배 시간 안내
-          </Link>
+          <div className="mt-5 grid grid-cols-2 gap-3 pb-3">
+            <Link href="/visit#times" onClick={() => setOpen(false)} className="btn btn-primary">
+              예배 시간
+            </Link>
+            <a href={`tel:${SITE_CONFIG.contact.phone}`} className="btn btn-ghost">
+              <Icon name="phone" size={18} />
+              전화하기
+            </a>
+          </div>
         </div>
       </nav>
     </header>

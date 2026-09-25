@@ -1,63 +1,54 @@
 @import "tailwindcss";
 
 /* ------------------------------------------------------------------
-   다솜교회 — Quiet Warmth (v3)
-   로즈스톤 배경 + 짙은 와인/버건디 악센트 + 브론즈 보조색
-   (v1 테라코타+크림 -> 키훈과 겹침, v2 그린+웜골드 -> 온담요양원
-   [care-demo]의 세이지그린+더스티블루와 겹침. doion 자매 사이트
-   전체의 색 계열: 키훈=레드, ptholic=오렌지, care-demo=그린,
-   빠둠뮤직/doion 브랜드=네이비+머스터드골드. 이 모두와 겹치지 않는
-   와인(버건디)+브론즈 계열로 전면 교체함)
-   에디토리얼 사진 중심, 절제된 모션
+   다솜교회 (영업용 데모) · Quiet Warmth v4 (2026-09-25 리워크)
+   따뜻한 종이색 바탕 + 와인(버건디) 강조색 하나 + 브론즈는 장식에만.
+   (doion 자매 사이트와 색 계열이 겹치지 않도록 v3에서 정한 와인 계열 유지:
+   키훈=레드, ptholic=오렌지, care-demo=그린, 빠둠/doion=네이비+골드)
+   세리프 제목(Noto Serif KR) + Pretendard 본문, 8pt 간격, 절제된 모션.
+   고령 성도 기기 고려: 블러·패럴랙스·3D·커서 효과 없음, 본문 17~18px.
 ------------------------------------------------------------------- */
 
 @theme {
-  --color-bg: #f5f0ec;
-  --color-bg-alt: #ede4df;
-  --color-surface: #fbf7f5;
-  --color-surface-raised: #ffffff;
-  --color-line: rgba(42, 31, 38, 0.12);
-  --color-line-strong: rgba(42, 31, 38, 0.22);
-  --color-text: #2a1f26;
-  --color-text-muted: #6b5c63;
-  --color-text-faint: #9c8d92;
+  --color-bg: #f6f1ec;
+  --color-bg-alt: #ede5de;
+  --color-surface: #fcf9f6;
+  --color-line: rgba(36, 26, 32, 0.12);
+  --color-line-strong: rgba(36, 26, 32, 0.24);
+  --color-text: #241a20;
+  --color-text-muted: #5b4c53;
+  --color-text-faint: #6b5c62;
   --color-accent: #6b2a3d;
-  --color-accent-strong: #431c2a;
-  --color-accent-soft: rgba(107, 42, 61, 0.1);
-  --color-gold: #a8763d;
-  --color-gold-soft: rgba(168, 118, 61, 0.14);
-  --color-cream: #f2e6da;
+  --color-accent-strong: #4a1c2b;
+  --color-accent-soft: rgba(107, 42, 61, 0.08);
+  --color-bronze: #85592c;
+  --color-bronze-soft: rgba(168, 118, 61, 0.16);
+  --color-night: #211519;
+  --color-night-2: #2d1d23;
+  --color-cream: #f4ebe2;
+  --color-cream-muted: #d9cbc1;
 
-  --font-display: "Noto Serif KR", "Pretendard", serif;
-  --font-body: "Pretendard", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: "Noto Serif KR", "Pretendard Variable", serif;
+  --font-body: "Pretendard Variable", "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
+    "Malgun Gothic", sans-serif;
 
-  --content-max: 1180px;
+  --content-max: 1200px;
   --ease-out-quiet: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+:root {
+  --section-y: clamp(64px, 9vw, 120px);
+  --dur: 240ms;
+  --dur-slow: 420ms;
 }
 
 * {
   box-sizing: border-box;
 }
 
-.scrollbar-none {
-  scrollbar-width: none;
-}
-.scrollbar-none::-webkit-scrollbar {
-  display: none;
-}
-
 html {
-  scroll-behavior: auto; /* Lenis가 스무스 스크롤을 담당 */
-}
-
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
+  scroll-behavior: auto; /* 데스크톱은 Lenis가 담당, 모바일은 기본 스크롤 */
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
@@ -65,10 +56,17 @@ body {
   background: var(--color-bg);
   color: var(--color-text);
   font-family: var(--font-body);
-  font-size: 16px;
-  line-height: 1.7;
+  font-size: 17px;
+  line-height: 1.75;
   -webkit-font-smoothing: antialiased;
   word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+@media (min-width: 768px) {
+  body {
+    font-size: 18px;
+  }
 }
 
 img {
@@ -80,17 +78,189 @@ h1,
 h2,
 h3 {
   font-family: var(--font-display);
-  font-weight: 500;
-  letter-spacing: -0.01em;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
   margin: 0;
-  color: var(--color-text);
   word-break: keep-all;
 }
 
+@layer components {
 .wrap {
+  width: 100%;
   max-width: var(--content-max);
   margin: 0 auto;
+  padding-inline: 20px;
+}
+@media (min-width: 768px) {
+  .wrap {
+    padding-inline: 32px;
+  }
+}
+
+.section {
+  padding-top: var(--section-y);
+  padding-bottom: var(--section-y);
+}
+
+/* 섹션 머리말: 작은 라벨 + 세리프 제목 */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--color-accent);
+}
+.eyebrow::before {
+  content: "";
+  width: 24px;
+  height: 1px;
+  background: currentColor;
+}
+.on-night .eyebrow {
+  color: var(--color-cream-muted);
+}
+
+.h-section {
+  font-size: clamp(28px, 3.6vw, 44px);
+  line-height: 1.3;
+}
+
+/* 버튼: 사각형에 가까운 절제된 형태 (교회 톤), 44px 이상 터치 타깃 */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 52px;
   padding: 0 24px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 17px;
+  line-height: 1.2;
+  text-decoration: none;
+  transition: background-color var(--dur) var(--ease-out-quiet), transform var(--dur) var(--ease-out-quiet),
+    border-color var(--dur) var(--ease-out-quiet), color var(--dur) var(--ease-out-quiet);
+}
+.btn-primary {
+  background: var(--color-accent);
+  color: #fff;
+}
+.btn-primary:hover {
+  background: var(--color-accent-strong);
+  transform: translateY(-2px);
+}
+.btn-ghost {
+  border: 1px solid var(--color-line-strong);
+  color: var(--color-text);
+  background: transparent;
+}
+.btn-ghost:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+.on-night .btn-ghost {
+  border-color: rgba(244, 235, 226, 0.35);
+  color: var(--color-cream);
+}
+.on-night .btn-ghost:hover {
+  border-color: var(--color-cream);
+  color: #fff;
+}
+
+.link-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  font-weight: 600;
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 6px;
+  transition: text-decoration-color var(--dur) var(--ease-out-quiet);
+}
+.link-arrow:hover {
+  text-decoration-color: currentColor;
+}
+.link-arrow svg {
+  transition: transform var(--dur) var(--ease-out-quiet);
+}
+.link-arrow:hover svg {
+  transform: translateX(3px);
+}
+
+}
+
+/* 사진 틀: 이미지가 늦게 와도 자리와 색이 먼저 잡히도록 */
+.photo {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(160deg, #d8c6bb, #b99c8e);
+}
+.photo img {
+  transition: transform var(--dur-slow) var(--ease-out-quiet);
+}
+@media (hover: hover) and (min-width: 768px) {
+  .photo-zoom:hover img {
+    transform: scale(1.03);
+  }
+}
+
+/* ---------------- 스크롤 진입 리빌 (transform/opacity만, 1회) ----------------
+   JS가 켜진 경우에만 숨김 상태로 시작 (html.js). 모션 줄이기면 즉시 표시. */
+html.js .reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 480ms var(--ease-out-quiet), transform 480ms var(--ease-out-quiet);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+html.js .reveal.in {
+  opacity: 1;
+  transform: none;
+}
+html[data-motion="reduce"] .reveal,
+html[data-motion="reduce"] .reveal.in {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  html.js .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+html[data-motion="reduce"] *,
+html[data-motion="reduce"] *::before,
+html[data-motion="reduce"] *::after {
+  transition-duration: 0.01ms !important;
+  animation-duration: 0.01ms !important;
+}
+
+/* FAQ 아코디언 (details/summary, JS 없이 키보드 조작 가능) */
+.faq summary {
+  list-style: none;
+  cursor: pointer;
+}
+.faq summary::-webkit-details-marker {
+  display: none;
+}
+.faq summary .faq-icon {
+  transition: transform var(--dur) var(--ease-out-quiet);
+}
+.faq[open] summary .faq-icon {
+  transform: rotate(45deg);
 }
 
 .sr-only {
@@ -106,6 +276,21 @@ h3 {
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-accent);
+  outline: 3px solid var(--color-accent);
   outline-offset: 3px;
+  border-radius: 2px;
+}
+.on-night :focus-visible {
+  outline-color: var(--color-cream);
+}
+
+::selection {
+  background: rgba(107, 42, 61, 0.18);
+}
+
+.scrollbar-none {
+  scrollbar-width: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
 }

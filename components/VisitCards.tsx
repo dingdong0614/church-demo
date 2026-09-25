@@ -1,61 +1,69 @@
+import Image from "next/image";
 import Link from "next/link";
+import Icon from "@/components/Icon";
 import { RevealOnScroll } from "@/components/Reveal";
 import { SITE_CONFIG } from "@/data/site";
+import { FIRST_SUNDAY } from "@/data/visit";
+import { PHOTOS, unsplash } from "@/data/photos";
 
-const STEPS = [
-  {
-    idx: "01",
-    tag: "예배 시간",
-    title: "주일과 수요일, 새벽까지",
-    desc: "1부·2부 주일예배와 수요기도회, 새벽기도회 시간을 확인하세요.",
-    href: "/visit",
-    cta: "예배 시간 보기",
-  },
-  {
-    idx: "02",
-    tag: "오시는 길",
-    title: SITE_CONFIG.addressShort,
-    desc: "네이버 지도로 길찾기를 도와드립니다.",
-    href: SITE_CONFIG.naverMapUrl,
-    cta: "지도에서 보기",
-    external: true,
-  },
-  {
-    idx: "03",
-    tag: "처음이신가요?",
-    title: "새가족부가 함께합니다",
-    desc: "등록 절차 없이 편하게 예배부터 드리셔도 좋습니다.",
-    href: "/visit",
-    cta: "새가족 안내",
-  },
-];
-
+/** 처음 오시는 날: 출입문 사진 + 주일 2부 기준 시간표 형식의 하루 흐름 */
 export default function VisitCards() {
   return (
-    <section className="border-b border-line bg-bg-alt py-16 md:py-24">
-      <div className="wrap">
-        <RevealOnScroll>
-          <p className="text-xs tracking-[0.14em] text-accent-strong">처음 오셨나요?</p>
-          <h2 className="mt-3 font-display text-2xl md:text-3xl">방문에 필요한 정보만 골라 담았습니다</h2>
-        </RevealOnScroll>
+    <section aria-labelledby="first-title" className="bg-bg-alt">
+      <div className="grid lg:grid-cols-12">
+        <div className="photo relative min-h-[320px] sm:min-h-[420px] lg:col-span-5 lg:min-h-full">
+          <Image
+            src={unsplash(PHOTOS.door.id, 1400)}
+            alt={PHOTOS.door.alt}
+            fill
+            sizes="(max-width: 1023px) 100vw, 42vw"
+            className="object-cover object-[50%_35%]"
+          />
+        </div>
 
-        <div className="mt-12 grid gap-8 md:grid-cols-3 md:gap-0 md:divide-x md:divide-line">
-          {STEPS.map((step, i) => (
-            <RevealOnScroll key={step.idx} delay={i * 0.1} className="md:px-8 md:first:pl-0 md:last:pr-0">
-              <span className="font-display text-4xl text-accent/25">{step.idx}</span>
-              <p className="mt-4 text-xs tracking-[0.1em] text-text-faint">{step.tag}</p>
-              <p className="mt-2 font-display text-xl">{step.title}</p>
-              <p className="mt-2 text-sm text-text-muted">{step.desc}</p>
-              <Link
-                href={step.href}
-                target={step.external ? "_blank" : undefined}
-                rel={step.external ? "noopener" : undefined}
-                className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-accent-strong hover:text-accent"
+        <div className="px-5 py-14 sm:px-8 md:px-12 md:py-20 lg:col-span-7 lg:px-16 xl:px-20">
+          <RevealOnScroll>
+            <h2 id="first-title" className="text-[30px] leading-[1.35] md:text-[40px]">
+              처음 오는 주일은
+              <br />
+              이렇게 흘러갑니다
+            </h2>
+            <p className="mt-3 text-text-muted">처음이시면 주일 2부(오전 11시)를 권해 드려요. 예배 후에 새가족부가 기다립니다.</p>
+          </RevealOnScroll>
+
+          <ol className="mt-10 max-w-2xl">
+            {FIRST_SUNDAY.map((s, i) => (
+              <RevealOnScroll
+                as="li"
+                key={s.time}
+                delay={i * 0.06}
+                className="grid grid-cols-[72px_1fr] gap-4 border-t border-line-strong py-5 md:grid-cols-[96px_1fr]"
               >
-                {step.cta} <span aria-hidden>→</span>
-              </Link>
-            </RevealOnScroll>
-          ))}
+                <span className="font-display text-[24px] font-semibold leading-tight text-accent md:text-[28px]">
+                  {s.time}
+                </span>
+                <span>
+                  <span className="block text-[19px] font-semibold">{s.title}</span>
+                  <span className="mt-1 block text-text-muted">{s.desc}</span>
+                </span>
+              </RevealOnScroll>
+            ))}
+          </ol>
+
+          <RevealOnScroll className="mt-8 flex flex-wrap items-center gap-3">
+            <Link href="/contact?type=newcomer" className="btn btn-primary">
+              새가족 등록하기
+              <Icon name="arrow" size={18} />
+            </Link>
+            <a href={SITE_CONFIG.naverMapUrl} target="_blank" rel="noopener noreferrer" className="btn btn-ghost">
+              <Icon name="pin" size={18} />
+              네이버 지도 길찾기
+              <span className="sr-only">(새 창)</span>
+            </a>
+          </RevealOnScroll>
+          <p className="mt-5 text-[15px] text-text-faint">
+            현관과 주보에 붙은 QR을 찍어도 같은 등록 화면이 열립니다. 종이 카드는 쓰지 않아요.
+          </p>
         </div>
       </div>
     </section>

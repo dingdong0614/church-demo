@@ -1,12 +1,16 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import PageHero from "@/components/PageHero";
+import MinistryGrid from "@/components/MinistryGrid";
+import ClosingCta from "@/components/ClosingCta";
 import { RevealOnScroll } from "@/components/Reveal";
 import { SITE_CONFIG } from "@/data/site";
+import { PHOTOS, unsplash } from "@/data/photos";
 
 export const metadata: Metadata = {
   title: "교회소개",
   description: `${SITE_CONFIG.name} 소개, 담임목사 인사말, 걸어온 길을 소개합니다.`,
+  alternates: { canonical: "/about" },
 };
 
 const TIMELINE = [
@@ -22,61 +26,69 @@ export default function AboutPage() {
       <PageHero
         crumb="교회소개"
         title="숫자보다 이름을 세는 교회"
-        desc={`${SITE_CONFIG.name}가 걸어온 길과 지금 지향하는 방향을 소개합니다.`}
+        desc={`일곱 가정의 거실 예배에서 시작한 ${SITE_CONFIG.name} 이야기입니다.`}
+        image={{ src: unsplash(PHOTOS.congregation.id, 2400), alt: PHOTOS.congregation.alt }}
+        position="50% 40%"
       />
 
-      <section className="border-b border-line bg-bg py-16 md:py-24">
-        <div className="wrap grid gap-10 md:grid-cols-[0.85fr_1.15fr] md:gap-16">
-          <RevealOnScroll>
-            <div className="relative aspect-[3/4] w-full max-w-sm overflow-hidden">
-              <Image
-                src="https://images.unsplash.com/photo-1706109576976-361ba78dcb56?auto=format&fit=crop&w=1000&q=80"
-                alt="예배당 창가에 서 있는 담임목사"
-                fill
-                sizes="(max-width: 767px) 100vw, 40vw"
-                className="object-cover"
-              />
-            </div>
-          </RevealOnScroll>
-
-          <RevealOnScroll delay={0.1} className="flex flex-col justify-center">
-            <p className="text-xs tracking-[0.14em] text-accent-strong">담임목사 인사말</p>
-            <div className="mt-5 space-y-4 text-text-muted leading-relaxed">
+      {/* 인사말: 편지 형식 */}
+      <section aria-labelledby="greeting-title" className="section bg-bg">
+        <div className="wrap grid gap-10 lg:grid-cols-12 lg:gap-14">
+          <RevealOnScroll className="lg:col-span-7">
+            <p className="text-[15px] text-text-faint">담임목사 인사말</p>
+            <h2 id="greeting-title" className="mt-3 text-[30px] leading-[1.4] md:text-[40px]">
+              안녕하세요,
+              <br />
+              {SITE_CONFIG.pastorName}입니다
+            </h2>
+            <div className="mt-8 space-y-5 text-[18px] leading-[1.9] text-text-muted md:text-[19px]">
               <p>
-                안녕하세요, {SITE_CONFIG.name} 담임 {SITE_CONFIG.pastorName}입니다. 저희 교회는 작습니다.
-                하지만 작다는 것은 서로의 이름과 사정을 알 수 있다는 뜻이기도 합니다.
+                저희 교회는 작습니다. 하지만 작다는 것은 서로의 이름과 사정을 알 수 있다는 뜻이기도 합니다.
               </p>
               <p>
-                누군가는 지쳐서, 누군가는 오랜만에, 누군가는 태어나 처음으로 예배당 문을 엽니다. 그
-                모든 걸음을 저희는 판단하지 않고 환영합니다. 완벽한 신앙을 요구하지 않습니다 — 정직한
-                질문과 걸음이면 충분합니다.
+                누군가는 지쳐서, 누군가는 오랜만에, 누군가는 태어나 처음으로 예배당 문을 엽니다. 그 모든 걸음을 저희는
+                판단하지 않고 환영합니다. 완벽한 신앙을 요구하지 않습니다. 정직한 질문과 걸음이면 충분합니다.
               </p>
               <p>당신의 자리를 비워두고 기다리겠습니다.</p>
             </div>
-            <p className="mt-6 font-display text-lg text-text">{SITE_CONFIG.pastorName}</p>
+            <p className="mt-8 font-display text-[22px] font-semibold text-text">{SITE_CONFIG.pastorName}</p>
+          </RevealOnScroll>
+          <RevealOnScroll delay={0.08} className="lg:col-span-5 lg:pt-12">
+            <div className="photo aspect-[3/4] rounded-lg">
+              <Image
+                src={unsplash(PHOTOS.windowShadow.id, 1000)}
+                alt={PHOTOS.windowShadow.alt}
+                fill
+                sizes="(max-width: 1023px) 100vw, 40vw"
+                className="object-cover"
+              />
+            </div>
+            <p className="mt-3 text-[14px] text-text-faint">실제 사이트에는 목사님 사진이 들어갑니다.</p>
           </RevealOnScroll>
         </div>
       </section>
 
-      <section className="bg-bg-alt py-16 md:py-24">
+      {/* 걸어온 길 */}
+      <section aria-labelledby="history-title" className="section bg-bg-alt">
         <div className="wrap">
           <RevealOnScroll>
-            <p className="text-xs tracking-[0.14em] text-accent-strong">걸어온 길</p>
-            <h2 className="mt-3 font-display text-2xl md:text-3xl">작게 시작해, 꾸준히 걸어온 시간</h2>
+            <h2 id="history-title" className="text-[30px] md:text-[40px]">
+              2015년 거실에서, 지금 성산동까지
+            </h2>
           </RevealOnScroll>
-
-          <div className="mt-10 divide-y divide-line border-t border-line">
+          <ol className="mt-12 grid gap-y-8 border-t-2 border-text pt-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-x-8">
             {TIMELINE.map((t, i) => (
-              <RevealOnScroll key={t.year} delay={i * 0.06}>
-                <div className="flex items-baseline gap-6 py-5">
-                  <span className="w-16 shrink-0 font-display text-lg text-accent-strong">{t.year}</span>
-                  <span className="text-text-muted">{t.event}</span>
-                </div>
+              <RevealOnScroll as="li" key={t.year} delay={i * 0.05}>
+                <p className="font-display text-[40px] font-semibold leading-none text-accent">{t.year}</p>
+                <p className="mt-3 text-[18px]">{t.event}</p>
               </RevealOnScroll>
             ))}
-          </div>
+          </ol>
         </div>
       </section>
+
+      <MinistryGrid variant="ministry" />
+      <ClosingCta />
     </>
   );
 }

@@ -5,6 +5,7 @@ import { SITE_CONFIG } from "@/data/site";
 export const metadata: Metadata = {
   title: "개인정보처리방침",
   description: `${SITE_CONFIG.name} 개인정보처리방침. 수집 항목, 이용 목적, 보유 기간, 정보주체의 권리 안내.`,
+  alternates: { canonical: "/privacy" },
 };
 
 const SECTIONS = [
@@ -24,7 +25,7 @@ const SECTIONS = [
     title: "2. 개인정보의 수집 및 이용 목적",
     body: (
       <p>
-        수집한 개인정보는 새가족 상담 및 심방 요청 접수, 문의 사항에 대한 답변 및 안내, 교회 관련 공지사항
+        수집한 개인정보는 새가족 등록, 기도 요청(담임목사만 열람, 90일 후 파기), 심방 요청, 기부금 영수증 신청 접수, 문의 사항에 대한 답변 및 안내, 교회 관련 공지사항
         전달 목적으로만 이용하며, 목적 외 용도로는 이용하지 않습니다.
       </p>
     ),
@@ -54,7 +55,8 @@ const SECTIONS = [
       <>
         <p>교회는 원활한 문의 접수 및 처리를 위해 아래와 같이 개인정보 처리 업무를 위탁하고 있습니다.</p>
         <ul className="mt-3 list-disc space-y-1 pl-5">
-          <li>수탁업체: Web3Forms — 위탁업무 내용: 문의 폼 데이터 전송 및 이메일 알림</li>
+          <li>수탁업체: Web3Forms (위탁업무: 문의 폼 데이터 전송 및 이메일 알림)</li>
+          <li>수탁업체: Vercel Inc. (위탁업무: 웹사이트 호스팅 및 문의 폼 서버 처리)</li>
         </ul>
       </>
     ),
@@ -85,7 +87,7 @@ const SECTIONS = [
         <li>성명 및 연락처: 대표 문의 채널(하단 참조)을 통해 안내드립니다.</li>
         <li>
           문의: {SITE_CONFIG.contact.email} 또는{" "}
-          <a href="/contact" className="underline">
+          <a href="/contact" className="font-semibold text-accent underline">
             문의 페이지
           </a>
         </li>
@@ -111,9 +113,9 @@ export default function PrivacyPage() {
         title="개인정보처리방침"
         desc={`${SITE_CONFIG.name}는 이용자의 개인정보를 소중히 다루며, 관련 법령을 준수합니다.`}
       />
-      <section className="py-16 md:py-24">
-        <div className="wrap max-w-3xl">
-          <p className="border border-line-strong bg-surface p-5 text-sm text-text-muted">
+      <section className="section bg-bg">
+        <div className="wrap !max-w-3xl">
+          <p className="rounded-lg border border-line-strong bg-surface p-5 text-[16px] text-text-muted">
             본 페이지는 doion이 정리한 체크리스트를 기반으로 작성된 초안이며, 법적 자문이 아닙니다. 개인정보
             보호책임자 성명·직통 연락처 등 일부 항목은 대표 확인 후 최종 반영이 필요합니다. 최종 게시 전
             전문가 검토를 권장합니다.
@@ -122,13 +124,13 @@ export default function PrivacyPage() {
           <div className="mt-10 space-y-10">
             {SECTIONS.map((s) => (
               <div key={s.title}>
-                <h2 className="font-display text-xl">{s.title}</h2>
-                <div className="mt-3 text-sm leading-relaxed text-text-muted">{s.body}</div>
+                <h2 className="text-[22px]">{s.title}</h2>
+                <div className="mt-3 text-[17px] leading-[1.8] text-text-muted">{s.body}</div>
               </div>
             ))}
           </div>
 
-          <p className="mt-12 text-xs text-text-faint">공고일자: 2026-08-24 / 시행일자: 2026-08-24</p>
+          <p className="mt-12 text-[15px] text-text-faint">공고일자: 2026-08-24 / 시행일자: 2026-08-24</p>
         </div>
       </section>
     </>
