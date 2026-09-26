@@ -209,8 +209,8 @@ export default function ContactForm() {
           </span>
         </label>
         <p id="consent-desc" className="mt-3 text-[15px] leading-relaxed text-text-muted">
-          수집 항목: 이름, 연락처, 문의 유형, 문의 내용 · 목적: 새가족 등록·기도 요청·심방·영수증 신청 등 문의 응대 · 보유 기간: 문의 처리 완료 후 즉시
-          파기. 동의하지 않으실 수 있으나, 이 경우 문의 접수가 어렵습니다. 자세한 내용은{" "}
+          수집 항목: 이름, 연락처, 문의 유형, 문의 내용 · 목적: 새가족 등록·기도 요청·심방·영수증 신청 등 문의 응대 · 보유 기간: 문의 처리 완료 후 1년(기도
+          요청은 90일) · 국외 이전: 문의 접수·호스팅을 위해 Web3Forms(인도)·Vercel(미국)로 전송. 동의하지 않으실 수 있으나, 이 경우 문의 접수가 어렵습니다. 자세한 내용은{" "}
           <Link href="/privacy" className="font-semibold text-accent underline underline-offset-2">
             개인정보처리방침
           </Link>

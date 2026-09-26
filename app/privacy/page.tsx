@@ -34,9 +34,9 @@ const SECTIONS = [
     title: "3. 개인정보의 보유 및 이용 기간",
     body: (
       <p>
-        원칙적으로 개인정보 수집 및 이용 목적이 달성된 후(문의 처리 완료 후) 해당 정보를 지체 없이 파기합니다.
-        단, 관계 법령의 규정에 따라 보존할 필요가 있는 경우 교회는 관계 법령에서 정한 일정한 기간 동안 정보를
-        보관합니다.
+        문의 내용은 문의 처리 완료 후 1년간 보관한 뒤 지체 없이 파기합니다. 단, 기도 요청은 담임목사만 열람하며
+        90일 후 파기합니다. 관계 법령의 규정에 따라 보존할 필요가 있는 경우 교회는 관계 법령에서 정한 기간 동안
+        정보를 보관합니다.
       </p>
     ),
   },
@@ -50,14 +50,40 @@ const SECTIONS = [
     ),
   },
   {
-    title: "5. 개인정보 처리의 위탁",
+    title: "5. 개인정보 처리 위탁 및 국외 이전",
     body: (
       <>
-        <p>교회는 원활한 문의 접수 및 처리를 위해 아래와 같이 개인정보 처리 업무를 위탁하고 있습니다.</p>
-        <ul className="mt-3 list-disc space-y-1 pl-5">
-          <li>수탁업체: Web3Forms (위탁업무: 문의 폼 데이터 전송 및 이메일 알림)</li>
-          <li>수탁업체: Vercel Inc. (위탁업무: 웹사이트 호스팅 및 문의 폼 서버 처리)</li>
+        <p>
+          교회는 원활한 문의 접수 및 홈페이지 운영을 위해 아래와 같이 개인정보 처리 업무를 위탁하고 있으며, 이
+          과정에서 개인정보가 국외로 이전됩니다.
+        </p>
+        <ul className="mt-3 list-disc space-y-3 pl-5">
+          <li>
+            <strong>Web3Creative(Web3Forms 운영사, 인도)</strong>, 서버: Amazon Web Services, Cloudflare, Hetzner
+            <ul className="mt-1 list-disc space-y-1 pl-5">
+              <li>위탁 업무: 문의 폼 데이터 전달 및 알림 메일 발송</li>
+              <li>이전 항목: 이름, 연락처, 문의 유형, 문의 내용</li>
+              <li>이전 시기·방법: 문의 제출 시 네트워크를 통해 전송</li>
+              <li>
+                보유 기간: Web3Forms 방침상 제출일부터 최대 3년 보관 후 자동 삭제되며, 교회는 문의 처리 완료 후
+                1년이 지나면(기도 요청은 90일) 삭제를 요청하거나 직접 삭제합니다.
+              </li>
+            </ul>
+          </li>
+          <li>
+            <strong>Vercel Inc.(미국)</strong>
+            <ul className="mt-1 list-disc space-y-1 pl-5">
+              <li>위탁 업무: 웹사이트 호스팅 및 문의 폼 서버 처리</li>
+              <li>이전 항목: 이름, 연락처, 문의 유형, 문의 내용, 접속 IP</li>
+              <li>이전 시기·방법: 홈페이지 접속 및 문의 제출 시 네트워크를 통해 전송</li>
+              <li>보유 기간: 위탁 계약 종료 시까지</li>
+            </ul>
+          </li>
         </ul>
+        <p className="mt-3">
+          개인정보의 국외 이전을 원하지 않으시면 온라인 문의 대신 전화({SITE_CONFIG.contact.phone})로 문의하실 수
+          있습니다.
+        </p>
       </>
     ),
   },
@@ -130,7 +156,8 @@ export default function PrivacyPage() {
             ))}
           </div>
 
-          <p className="mt-12 text-[15px] text-text-faint">공고일자: 2026-08-24 / 시행일자: 2026-08-24</p>
+          <p className="mt-12 text-[15px] text-text-faint">공고일자: 2026-09-26 / 시행일자: 2026-10-03</p>
+          <p className="mt-1 text-[15px] text-text-faint">이전 방침: 2026-08-24 시행</p>
         </div>
       </section>
     </>
